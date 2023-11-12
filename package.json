@@ -1,0 +1,29 @@
+{
+  "name": "vite-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "prisma": {
+    "schema": "src/database/prisma/schema.prisma"
+  },
+  "scripts": {
+    "dev": "nodemon src/main.js -w src",
+    "start": "NODE_ENV=production node src/main.js",
+    "prisma:generate": "npx prisma generate",
+    "prisma:generate:host": "DB_HOST=localhost npx prisma generate",
+    "db:push": "npx prisma db push",
+    "db:push:host": "DB_HOST=localhost npx prisma db push",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.5.2",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "prisma": "^5.5.2",
+    "vite-express": "*"
+  }
+}

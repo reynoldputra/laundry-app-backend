@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  postgres:
+    hostname: postgres
+    image: postgres:latest
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - ./docker/volumes/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+
+  app:
+    image: node:alpine
+    command: sh -c "yarn && yarn dev"
+    restart: always
+    working_dir: /app
+    depends_on: 
+      - postgres
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    volumes:
+      - ./:/app
