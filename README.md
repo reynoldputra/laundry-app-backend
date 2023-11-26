@@ -1,13 +1,13 @@
-## Node Express Typescript Prisma Boilerplate
+## Node Express Prisma Boilerplate
 
-🦄 Starter template for your Express Prisma MySQL API
+🦄 Starter template for your Express Prisma PostgresSQL API
 
 ## 🍔 Stack Specs
 
 - Node.js
 - Express
 - Prisma
-- MySQL
+- PostgresSQL
 
 ## 🧬 Development
 
@@ -22,11 +22,9 @@ docker compose up
 - Create prisma client
 
 ```
-npx prisma generate
+npm run prisma:genereate:host
 ```
-
-- Apply migration
-
+- Run migration
 ```
-npx primsa migrate dev
+npm run prisma:migrate-dev:host
 ```

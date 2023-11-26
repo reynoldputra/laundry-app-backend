@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "./src/main.js",
   "prisma": {
     "schema": "src/database/prisma/schema.prisma"
   },
@@ -13,7 +14,12 @@
     "prisma:generate:host": "DB_HOST=localhost npx prisma generate",
     "db:push": "npx prisma db push",
     "db:push:host": "DB_HOST=localhost npx prisma db push",
+    "db:migrate-dev": "npx prisma migrate dev",
+    "db:migrate-dev:host": "DB_HOST=localhost npx prisma migrate dev",
     "build": "vite build"
+  },
+  "imports": {
+    "#src/*": "./src/*"
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
