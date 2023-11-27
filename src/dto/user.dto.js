@@ -3,22 +3,14 @@ import { z } from "zod";
 export const createUserDto = z.object({
   body: z.object({
     name: z.string(),
-    email: z.string()
+    email: z.string(),
+    password: z.string()
   })
 })
 
-export const updateUserDto = z.object({
+export const loginDto = z.object({
   body: z.object({
-    name: z.string(),
-    email: z.string()
-  }),
-  params: z.object({
-    id: z.string()
-  })
-})
-
-export const getUserDto = z.object({
-  params: z.object({
-    id: z.any()
+    email: z.string(),
+    password: z.string()
   })
 })

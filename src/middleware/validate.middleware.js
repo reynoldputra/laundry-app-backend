@@ -1,6 +1,6 @@
 import createHttpError from "http-errors";
 import { z } from "zod";
-import { ValidationError } from "../helpers/ValidationError.js";
+import { ValidationError } from "../helpers/error.helper.js";
 
 const validate = (schema) =>
   async (req, res, next) => {

@@ -1,0 +1,80 @@
+@startuml
+
+skinparam linetype ortho
+
+enum OrderStatus {
+  PICKUP
+  WASHING
+  CLEANING
+  DRYING
+  DELIVER
+}
+
+enum ServiceType {
+  CUCI_BASAH
+  CUCI_KERING
+  CUCI_SETRIKA
+}
+
+enum UserRole {
+  OWNER
+  CUSTOMER
+}
+
+entity User {
+  * id: String
+  * username: String
+  * email: String
+  * password: String
+  * address: String
+  * long: Float
+  * lat: Float
+  * role: UserRole
+  * Service: Service[]
+  * Customer: Customer[]
+  * Owner: Owner[]
+}
+
+entity Customer {
+  * id: String
+  * User: User
+  * userId: String
+  * Order: Order[]
+}
+
+entity Owner {
+  * id: String
+  * User: User
+  * userId: String
+  * Order: Order[]
+}
+
+entity Service {
+  * id: Int
+  * type: ServiceType
+  * price: Int
+  * status: OrderStatus
+  * User: User
+  * userId: String
+}
+
+entity Order {
+  * id: Int
+  * estimatedTime: DateTime
+  * laundryIn: DateTime
+  * Customer: Customer
+  * customerId: String
+  * Owner: Owner
+  * ownerId: String
+}
+
+User ||..|| UserRole
+User ||..|{ Customer
+User ||..|{ Owner
+User ||..|{ Service
+Customer ||..|{ Order
+Service ||..|| OrderStatus
+Service ||..|| ServiceType
+User ||..|| UserRole
+
+@enduml

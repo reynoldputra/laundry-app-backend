@@ -1,46 +1,38 @@
 import prisma from "#src/database/db.js"
+import { UserRole } from "@prisma/client";
+import createHttpError from "http-errors";
+import { comparePassword, hashPassword } from "../helpers/hash.helper.js";
 
 class userService {
-  static async createUser(name, email) {
-    return await prisma.user.create({
-      data: {
-        name: String(name),
-        email: String(email),
-        status: "active"
+  static async createUser(data) {
+    try {
+      const hashedPassword = await hashPassword(data.password, 10);
+      return await prisma.user.create({
+        data: {
+          ...data,
+          role: UserRole.CUSTOMER,
+          password: hashedPassword
+        }
+      });
+    } catch (err) {
+      if (err?.code === "P2002") {
+        throw createHttpError.BadRequest("Email already used")
       }
-    });
+      throw err
+    }
   }
 
-  static async getUserById(id) {
-    return await prisma.user.findFirst({
+  static async confirmEmailPassword(email, password) {
+    const user = await prisma.user.findFirst({
       where: {
-        id: id
+        email
       }
-    });
-  }
+    })
+    
+    if(!user) throw createHttpError.BadRequest("Invalid username and/or password")
 
-  static async getAllUser() {
-    return await prisma.user.findMany();
-  }
-
-  static async updateUser(id, name, email) {
-    return await prisma.user.update({
-      where: {
-        id: Number(id)
-      },
-      data: {
-        name: String(name),
-        email: String(email)
-      }
-    });
-  }
-
-  static async deleteUser(id) {
-    await prisma.user.delete({
-      where: {
-        id: Number(id)
-      }
-    });
+    const compare = await comparePassword(password, user.password)
+    return compare
   }
 }
 

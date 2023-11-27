@@ -1,5 +1,5 @@
 import createHttpError from "http-errors"
-import { ValidationError } from "../helpers/ValidationError.js"
+import { ValidationError } from "../helpers/error.helper.js"
 
 const errorInterceptor = (err, req, res, next) => {
   console.log(err)
@@ -8,13 +8,6 @@ const errorInterceptor = (err, req, res, next) => {
       status: false,
       message: err.message,
       data: err.data ?? []
-    })
-  }
-
-  if(createHttpError.isHttpError(err)) {
-    res.status(err.statusCode).json({
-      status: false,
-      message: err.message,
     })
   }
 
