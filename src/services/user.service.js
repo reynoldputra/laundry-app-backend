@@ -12,9 +12,9 @@ class userService {
   }
 
   static async getUserById(id) {
-    return await prisma.user.findUnique({
+    return await prisma.user.findFirst({
       where: {
-        id: Number(id)
+        id: id
       }
     });
   }
