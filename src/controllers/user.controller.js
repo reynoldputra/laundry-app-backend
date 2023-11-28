@@ -11,11 +11,9 @@ class UserController {
 
   static async login(req, res) {
     const {email, password} = req.body
-    const check = await userService.confirmEmailPassword(email, password)
+    const data = await userService.confirmEmailPassword(email, password)
 
-    if(!check) throw createHttpError.BadRequest("Invalid username and/or password")
-
-    res.json({message: "Success login"})
+    res.json({message: "Success login", data : data})
   }
 }
 

@@ -2,6 +2,7 @@ import prisma from "#src/database/db.js"
 import { UserRole } from "@prisma/client";
 import createHttpError from "http-errors";
 import { comparePassword, hashPassword } from "../helpers/hash.helper.js";
+import { signToken } from "../helpers/jwt.helper.js"
 
 class userService {
   static async createUser(data) {
@@ -28,11 +29,16 @@ class userService {
         email
       }
     })
-    
-    if(!user) throw createHttpError.BadRequest("Invalid username and/or password")
+
+    if (!user) throw createHttpError.BadRequest("Invalid username and/or password")
 
     const compare = await comparePassword(password, user.password)
-    return compare
+
+    if (!compare) throw createHttpError.BadRequest("Invalid username and/or password")
+
+    return {
+      token: signToken(user.id)
+    }
   }
 }
 
