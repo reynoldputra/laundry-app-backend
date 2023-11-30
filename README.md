@@ -28,3 +28,4 @@ npm run prisma:genereate:host
 ```
 npm run prisma:migrate-dev:host
 ```
+
