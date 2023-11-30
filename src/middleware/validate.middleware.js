@@ -4,6 +4,7 @@ import { ValidationError } from "../helpers/error.helper.js";
 
 const validate = (schema) =>
   async (req, res, next) => {
+    console.log(req)
     try {
       await schema.parseAsync({
         body: req.body,

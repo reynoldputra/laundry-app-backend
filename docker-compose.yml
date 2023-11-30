@@ -13,14 +13,14 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_DB=${DB_NAME}
 
-  app:
-    image: node:alpine
-    command: sh -c "yarn && yarn dev"
-    restart: always
-    working_dir: /app
-    depends_on: 
-      - postgres
-    ports:
-      - ${BACKEND_PORT}:${BACKEND_PORT}
-    volumes:
-      - ./:/app
+  # app:
+  #   image: node:alpine
+  #   command: sh -c "yarn && yarn dev"
+  #   restart: always
+  #   working_dir: /app
+  #   depends_on: 
+  #     - postgres
+  #   ports:
+  #     - ${BACKEND_PORT}:${BACKEND_PORT}
+  #   volumes:
+  #     - ./:/app

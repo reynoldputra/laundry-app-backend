@@ -2,7 +2,6 @@
   "name": "vite-starter",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "main": "./src/main.js",
   "prisma": {
     "schema": "src/database/prisma/schema.prisma"
