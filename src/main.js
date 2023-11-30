@@ -5,6 +5,7 @@ import errorInterceptor from "./middleware/error.middleware.js";
 import userRouter from "./routes/user.router.js"
 import serviceRouter from "./routes/service.router.js";
 import orderRouter from "./routes/order.router.js";
+import cors from "cors";
 import 'express-async-errors'
 
 const app = express();
