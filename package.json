@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "nodemon src/main.js -w src",
     "start": "NODE_ENV=production node src/main.js",
+    "vercel-build": "prisma generate && prisma migrate deploy",
     "prisma:generate": "npx prisma generate",
     "prisma:generate:host": "DB_HOST=localhost npx prisma generate",
     "db:push": "npx prisma db push",

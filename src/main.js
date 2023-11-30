@@ -10,6 +10,11 @@ import 'express-async-errors'
 const app = express();
 app.use(express.json());
 app.use(loggingMiddleware)
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.get("/", async (_, res) => {
   res.send("Hello Vite!");
