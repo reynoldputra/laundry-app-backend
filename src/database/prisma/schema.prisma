@@ -17,44 +17,44 @@ model User {
   lat      Float?
   role     UserRole
 
-  Service  Service[]
-  Customer Customer[]
-  Owner    Owner[]
+  Customer Customer?
+  Owner    Owner?
 }
 
 model Customer {
   id     String  @id @default(uuid())
   User   User    @relation(fields: [userId], references: [id])
-  userId String
+  userId String  @unique
   Order  Order[]
 }
 
 model Owner {
-  id     String  @id @default(uuid())
-  User   User    @relation(fields: [userId], references: [id])
-  userId String
-  Order  Order[]
+  id      String    @id @default(uuid())
+  User    User      @relation(fields: [userId], references: [id])
+  userId  String    @unique
+  Service Service[]
 }
 
 model Service {
-  id     Int         @id @default(autoincrement())
-  type   ServiceType
-  price  Int
-  status OrderStatus
+  id    Int         @id @default(autoincrement())
+  type  ServiceType
+  price Int
+  Order Order[]
 
-  User   User   @relation(fields: [userId], references: [id])
-  userId String
+  Owner   Owner  @relation(fields: [ownerId], references: [id])
+  ownerId String
 }
 
 model Order {
-  id            Int      @id @default(autoincrement())
+  id            String      @id @default(uuid())
   estimatedTime DateTime
   laundryIn     DateTime
+  status        OrderStatus
 
   Customer   Customer @relation(fields: [customerId], references: [id])
   customerId String
-  Owner      Owner    @relation(fields: [ownerId], references: [id])
-  ownerId    String
+  Service    Service  @relation(fields: [serviceId], references: [id])
+  serviceId  Int
 }
 
 enum OrderStatus {

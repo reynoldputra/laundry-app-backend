@@ -1,18 +1,39 @@
-import prisma from "#src/database/db.js"
 import { UserRole } from "@prisma/client";
 import createHttpError from "http-errors";
 import { comparePassword, hashPassword } from "../helpers/hash.helper.js";
 import { signToken } from "../helpers/jwt.helper.js"
+import { PrismaService } from "../database/prisma.service.js";
 
 class userService {
-  static async createUser(data) {
+  static prismaService = new PrismaService();
+
+  static async createUser(data, role) {
     try {
+      let roleData
+
+      if (role == UserRole.CUSTOMER) {
+        roleData = {
+          Customer: {
+            create: {}
+          }
+        }
+      } else if (role == UserRole.OWNER) {
+        roleData = {
+          Owner: {
+            create: {}
+          }
+        }
+      } else {
+        throw createHttpError.BadRequest("Role not valid")
+      }
+
       const hashedPassword = await hashPassword(data.password, 10);
-      return await prisma.user.create({
+      return await this.prismaService.user.create({
         data: {
           ...data,
-          role: UserRole.CUSTOMER,
-          password: hashedPassword
+          role: role,
+          password: hashedPassword,
+          ...roleData
         }
       });
     } catch (err) {
@@ -24,7 +45,7 @@ class userService {
   }
 
   static async confirmEmailPassword(email, password) {
-    const user = await prisma.user.findFirst({
+    const user = await this.prismaService.user.findFirst({
       where: {
         email
       }
@@ -39,6 +60,29 @@ class userService {
     return {
       token: signToken(user.id)
     }
+  }
+
+
+  static async updateProfile(id, data) {
+    const user = await this.prismaService.user.update({
+      where: { id },
+      data: data
+    })
+
+    return user
+  }
+
+
+  static async getUser(id) {
+    const user = await this.prismaService.user.findFirst({
+      where: {
+        id
+      }
+    })
+
+    delete user.password
+
+    return user
   }
 }
 

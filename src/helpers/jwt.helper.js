@@ -12,3 +12,18 @@ export const signToken = (id) => {
 
   return token
 }
+
+export const verifytoken = (token) => {
+  const secret = process.env.JWT_SECRET ?? JWT_SECRET
+
+  console.log("secret", secret)
+  console.log("token", token)
+
+  try {
+    const decoded = jwt.verify(token, secret);
+    return decoded;
+  } catch (error) {
+    console.error("JWT verification failed:", error);
+    return null;
+  }
+};
