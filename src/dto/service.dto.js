@@ -22,6 +22,12 @@ export const getServicedto = z.object({
   }),
 })
 
+export const getLspDto = z.object({
+  params: z.object({
+    id: z.string()
+  }),
+})
+
 export const deleteServiceDto = z.object({
   params: z.object({
     id: NumberOrStringAsNumberSchema

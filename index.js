@@ -1,3 +1,4 @@
+// for serverless 
 import express, { Router } from "express";
 import loggingMiddleware from "./src/middleware/logger.middleware.js";
 import errorInterceptor from "./src/middleware/error.middleware.js";

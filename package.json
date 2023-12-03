@@ -2,13 +2,13 @@
   "name": "vite-starter",
   "private": true,
   "version": "0.0.0",
-  "main": "./src/main.js",
+  "main": "./src/index.js",
   "prisma": {
     "schema": "src/database/prisma/schema.prisma"
   },
   "scripts": {
-    "dev": "nodemon src/main.js -w src",
-    "start": "NODE_ENV=production node src/main.js",
+    "dev": "nodemon src/index.js -w src",
+    "start": "NODE_ENV=production node ./src/index.js",
     "vercel-build": "prisma generate && prisma migrate deploy",
     "prisma:generate": "npx prisma generate",
     "prisma:generate:host": "DB_HOST=localhost npx prisma generate",
@@ -35,6 +35,7 @@
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "password-hash": "^1.2.2",
     "prisma": "^5.5.2",
     "vite-express": "*",
     "zod": "^3.22.4",

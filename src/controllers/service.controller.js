@@ -30,6 +30,17 @@ class ServiceController {
     const service = await serviceService.deleteService(id)
     res.json({message: "Success delete", data : service})
   }
+
+  static async getAllLsp(req, res) {
+    const lsp = await serviceService.getAllLsp()
+    res.json({message: "Success get lsp", data : lsp})
+  }
+
+  static async getLsp(req, res) {
+    const {id} = req.params
+    const lsp = await serviceService.getLsp(id)
+    res.json({message: "Success get detail lsp", data : lsp})
+  }
 }
 
 export default ServiceController

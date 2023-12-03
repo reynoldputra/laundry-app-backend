@@ -84,6 +84,31 @@ class serviceService {
 
     return service
   }
+
+  static async getAllLsp() {
+    const lsp = await this.prismaService.user.findMany({
+      where : {
+        Owner : {
+          isNot : null
+        }
+      }
+    })
+
+    return exclude(lsp, "password")
+  }
+  
+  static async getLsp(id) {
+    console.log(id)
+    const lsp = await this.prismaService.service.findMany({
+      where : {
+        Owner : {
+          userId : id
+        }
+      }
+    })
+
+    return exclude(lsp, "password")
+  }
 }
 
 export default serviceService

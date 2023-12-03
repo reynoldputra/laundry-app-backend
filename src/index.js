@@ -1,6 +1,5 @@
 import express, { Router } from "express";
 import loggingMiddleware from "./middleware/logger.middleware.js";
-import ViteExpress from "vite-express"
 import errorInterceptor from "./middleware/error.middleware.js";
 import userRouter from "./routes/user.router.js"
 import serviceRouter from "./routes/service.router.js";
@@ -18,7 +17,7 @@ app.use(
 );
 
 app.get("/", async (_, res) => {
-  res.send("Hello Vite!");
+  res.send("Hello World!");
 })
 
 const apiRoutes = new Router()
@@ -36,7 +35,9 @@ app.use(errorInterceptor)
 
 const PORT = process.env.BACKEND_PORT ?? 3001
 
-ViteExpress.listen(app, PORT, () =>
+app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}...`)
-)
+})
 
+// module.exports = app
+export default app
