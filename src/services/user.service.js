@@ -3,6 +3,7 @@ import createHttpError from "http-errors";
 import { comparePassword, hashPassword } from "../helpers/hash.helper.js";
 import { signToken } from "../helpers/jwt.helper.js"
 import { PrismaService } from "../database/prisma.service.js";
+import { exclude } from "../helpers/prisma.helper.js";
 
 class userService {
   static prismaService = new PrismaService();
@@ -83,6 +84,16 @@ class userService {
     delete user.password
 
     return user
+  }
+
+  static async getUsers() {
+    const users = await this.prismaService.user.findMany({
+      include : {
+        Owner : true,
+        Customer : true
+      }
+    })
+    return exclude(users, ['password'])
   }
 }
 

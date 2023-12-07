@@ -37,6 +37,11 @@ class UserController {
     const userData =  await userService.getUser(user.id)
     res.json({message: "Success verify token", data : userData})
   }
+
+  static async getAll(req, res) {
+    const userData =  await userService.getUsers()
+    res.json({message: "Success verify token", data : userData})
+  }
 }
 
 export default UserController

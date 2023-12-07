@@ -11,6 +11,7 @@ import { jwtMiddleware } from "../middleware/jwt.middleware.js";
 const userRouter = new Router()
 
 userRouter.get('/me', jwtMiddleware, userController.me);
+userRouter.get('/', userController.getAll);
 userRouter.post('/register/owner', validate(createUserDto), userController.createOwner);
 userRouter.post('/register/customer', validate(createUserDto), userController.createCustomer);
 userRouter.post('/login', validate(loginDto), userController.login);

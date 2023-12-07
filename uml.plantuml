@@ -21,60 +21,65 @@ enum UserRole {
   CUSTOMER
 }
 
-entity User {
-  * id: String
-  * username: String
-  * email: String
-  * password: String
-  * address: String
-  * long: Float
-  * lat: Float
-  * role: UserRole
-  * Service: Service[]
-  * Customer: Customer[]
-  * Owner: Owner[]
-}
+left to right direction
+skinparam packageStyle rect
 
-entity Customer {
-  * id: String
-  * User: User
-  * userId: String
-  * Order: Order[]
-}
+package "Entities" {
+  entity User {
+    * id: String
+    * name: String
+    * email: String
+    * password: String
+    address: String?
+    long: Float?
+    lat: Float?
+    * role: UserRole
+    Customer: Customer?
+    Owner: Owner?
+  }
 
-entity Owner {
-  * id: String
-  * User: User
-  * userId: String
-  * Order: Order[]
-}
+  entity Customer {
+    * id: String
+    * User: User
+    * userId: String
+    * Order: Order[]
+  }
 
-entity Service {
-  * id: Int
-  * type: ServiceType
-  * price: Int
-  * status: OrderStatus
-  * User: User
-  * userId: String
-}
+  entity Owner {
+    * id: String
+    * User: User
+    * userId: String
+    * Service: Service[]
+  }
 
-entity Order {
-  * id: Int
-  * estimatedTime: DateTime
-  * laundryIn: DateTime
-  * Customer: Customer
-  * customerId: String
-  * Owner: Owner
-  * ownerId: String
-}
+  entity Service {
+    * id: Int
+    * type: ServiceType
+    * price: Int
+    * Order: Order[]
+    * Owner: Owner
+    * ownerId: String
+  }
 
-User ||..|| UserRole
-User ||..|{ Customer
-User ||..|{ Owner
-User ||..|{ Service
-Customer ||..|{ Order
-Service ||..|| OrderStatus
-Service ||..|| ServiceType
-User ||..|| UserRole
+  entity Order {
+    * id: String
+    * estimatedTime: DateTime
+    * laundryIn: DateTime
+    * status: OrderStatus
+    * Customer: Customer
+    * customerId: String
+    * Service: Service
+    * serviceId: Int
+  }
+
+  User ||--o Customer
+  User ||--o Owner
+  Owner ||--o Service
+  Customer }|--|| Order
+  Order ||--|{ OrderStatus
+  Service ||--|{ ServiceType
+  User ||--|| UserRole
+}
 
 @enduml
+
