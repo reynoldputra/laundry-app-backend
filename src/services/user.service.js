@@ -59,7 +59,8 @@ class userService {
     if (!compare) throw createHttpError.BadRequest("Invalid username and/or password")
 
     return {
-      token: signToken(user.id)
+      token: signToken(user.id),
+      role : user.role
     }
   }
 
