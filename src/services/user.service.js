@@ -79,6 +79,10 @@ class userService {
     const user = await this.prismaService.user.findFirst({
       where: {
         id
+      },
+      include : {
+        Customer : true,
+        Owner : true
       }
     })
 
