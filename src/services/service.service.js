@@ -8,7 +8,7 @@ class serviceService {
   static async createService(data) {
     const check = await this.prismaService.service.findFirst({
       where: {
-        ownerId: data.id,
+        ownerId: data.ownerId,
         type: data.type
       }
     })
