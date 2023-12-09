@@ -63,6 +63,7 @@ enum OrderStatus {
   CLEANING
   DRYING
   DELIVER
+  COMPLETE
 }
 
 enum ServiceType {

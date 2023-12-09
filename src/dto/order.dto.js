@@ -8,6 +8,7 @@ const OrderStatusSchema = z.enum([
   OrderStatus.CLEANING,
   OrderStatus.DRYING,
   OrderStatus.DELIVER,
+  OrderStatus.COMPLETE
 ]);
 
 export const createOrderDto = z.object({
